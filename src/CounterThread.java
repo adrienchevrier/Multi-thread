@@ -29,6 +29,7 @@ public class CounterThread {
                 System.out.println("cpt value:" +cpt + "thread ID:" +thread.getId());
             
             }
+            
         };
         
         Thread thread1 = new Thread(runnable);
