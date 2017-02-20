@@ -10,22 +10,24 @@ package lab4;
  * @author Nicolas
  */
 public class CounterThread {
-
+   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
      
+       
         Runnable runnable = new Runnable () {
             
             // we implement Runnable. 
             @Override
             public void run() {
                 //int getpid();
-                
+                Thread thread = Thread.currentThread();
                 for (int cpt = 1; cpt <1001; cpt++)
                     
-                System.out.println("cpt value:" +cpt + "thread ID:");
+                System.out.println("cpt value:" +cpt + "thread ID:" +thread.getId());
+            
             }
         };
         
