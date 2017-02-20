@@ -11,7 +11,6 @@ import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStat
  * @author Nicolas
  */
 public class CounterThread implements Runnable {
-        //GIIIIIIIIIIIIIIIIIIIIIIIIIIIIT
         // we implement Runnable.
         @Override
         public void run() {
