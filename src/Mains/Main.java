@@ -26,6 +26,7 @@ public class Main {
             thread2.join();
             thread3.join();
             thread4.join();
+            System.out.println("Program finishes");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
