@@ -2,11 +2,13 @@ package Mains;
 
 import CounterThread.CounterThread;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
-
-        CounterThread t1 = new CounterThread();
+        ArrayList<Integer> counter = new ArrayList<>(4);
+        CounterThread t1 = new CounterThread(counter);
 
 
         Thread thread1 = new Thread(t1);

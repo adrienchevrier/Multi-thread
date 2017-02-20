@@ -4,6 +4,8 @@ package CounterThread;/*
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+
 import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
 
 /**
@@ -11,20 +13,44 @@ import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStat
  * @author Nicolas
  */
 public class CounterThread implements Runnable {
-        // we implement Runnable.
+
+        //Array list containing the counter values
+       private ArrayList<Integer> counter = new ArrayList<>(4);
+
+    public CounterThread(ArrayList<Integer> counter) {
+        this.counter = counter;
+    }
+
+    // we implement Runnable.
+    //Calls the method adding counted values
         @Override
         public void run() {
-            Thread thread = Thread.currentThread();
-            for (int cpt = 1; cpt <1001; cpt++)
-
-                System.out.println("cpt value:" +cpt + "thread ID:" +thread.getId());
-
-
+            add_value();
         
-        // We observe that each thread doesn't run to the end 
-        // like for example some threads stop at 780 value, and another one is scheduled
-        // so we think the program doesn't do what it has to since threads stop eachother before the end of each
-        
+        // We observe that each thread doesn't run to the end in a single raw
+        // For example some threads stop at 780 value, and another one is scheduled
+        // The different threads run for a while, stop, let other threads run
+            // and restart where they stopped after a while.
+
+        /*
+        When we try to make different threads on a single shared resource(an array list)
+        We have a ConcurrentModificationException because different threads try to modify a resource
+        at the same time. This can ba handled with a synchronized function
+         */
+    }
+
+    /*
+    Add values to the array list
+     */
+    private synchronized void add_value(){
+        int val ;
+        Thread thread = Thread.currentThread();
+        for (val = 1; val <1001; val++) {
+            counter.add(val);
+            System.out.println("cpt value:" + val + "thread ID:" + thread.getId());
+
+        }
+        System.out.println(counter);
     }
     
 }
