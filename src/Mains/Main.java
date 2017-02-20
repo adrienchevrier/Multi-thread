@@ -7,14 +7,12 @@ public class Main {
     public static void main(String[] args) {
 
         CounterThread t1 = new CounterThread();
-        CounterThread t2 = new CounterThread();
-        CounterThread t3 = new CounterThread();
-        CounterThread t4 = new CounterThread();
+
 
         Thread thread1 = new Thread(t1);
-        Thread thread2 = new Thread (t2);
-        Thread thread3 = new Thread (t3);
-        Thread thread4 = new Thread (t4);
+        Thread thread2 = new Thread (t1);
+        Thread thread3 = new Thread (t1);
+        Thread thread4 = new Thread (t1);
         // each of the thread calls the run method by doing thread.start()
 
         thread1.start();
@@ -30,5 +28,5 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    };
+    }
 }
