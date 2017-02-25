@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PhilosopherDinner {
 
     private final ReentrantLock[] forks;
-
+//OK
     public PhilosopherDinner(int forkCount) {
         ReentrantLock[] forks = new ReentrantLock[forkCount];
         for (int i = 0; i < forkCount; i++) {
