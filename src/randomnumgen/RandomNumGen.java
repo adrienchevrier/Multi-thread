@@ -1,30 +1,54 @@
 package randomnumgen;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * Created by adrien on 25/02/17.
+ * Make the given code thread safe using an AtomicLong
  */
 public class RandomNumGen {
     private long x;
+    private AtomicLong atomiX;
 
+    /*Thread calling next function*/
+    class AtomicThread implements Runnable{
+        RandomNumGen rng = new RandomNumGen(1);
+        /*run prints result of AtomicNext function*/
+        @Override
+        public void run() {
+            System.out.println(rng.atomicNext());
+        }
+    }
+
+    /*CONSTRUCTOR*/
     public RandomNumGen(long seed) {
         if (seed == 0) {
             throw new IllegalArgumentException("seed == 0");
         }
-        x = seed;
+        atomiX = new AtomicLong(seed);
     }
+    public RandomNumGen(){}
 
-    public long next() {  // Marsaglia's XorShift
-        x ^= x >>> 12;
-        x ^= x << 25;
-        x ^= x >>> 27;
-        return x * 2685821657736338717L;
+
+    /*calculates next atomiX*/
+    public long atomicNext(){   // Marsaglia's XorShift
+        long prev;
+        long next;
+        //Loop while atomiX changes during computation of next value
+        do {
+            prev = atomiX.get();
+            next = prev;
+            next ^= next >>> 12;
+            next ^= next << 25;
+            next ^= next >>> 27;
+        }while (!atomiX.compareAndSet(prev,next));
+        return next*2685821657736338717L;
     }
 
     public static void main(String[] args) {
-        RandomNumGen rng = new RandomNumGen(1);
+
         for(int i = 0; i < 1000; i++) {
-            System.out.println(rng.next());
+            new Thread(new RandomNumGen().new AtomicThread()).start();
         }
     }
-
 }
