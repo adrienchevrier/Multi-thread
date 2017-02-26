@@ -4,7 +4,7 @@ import CounterThread.CounterThread;
 
 import java.util.ArrayList;
 
-public class Main {
+public class MainExo1 {
 
     public static void main(String[] args) {
         ArrayList<Integer> counter = new ArrayList<>(4);
