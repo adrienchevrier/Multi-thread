@@ -11,22 +11,45 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class PingPong {
 
-    private boolean sent = false;
+    int count = 0;
     final Lock lock = new ReentrantLock();
-    final Condition notFull = lock.newCondition();
+   // final Condition notFull = lock.newCondition();
     final Condition notEmpty = lock.newCondition();
-    
 
     private void ping() {
-        sent = true;
+        lock.lock();
+        try {
+        
         System.out.println("ping");
-    }
+        count = 1;
+        }
+        
+        finally {
+            
+           lock.unlock();
+           
+        }      
+       }       
+    
 
     private void pong() throws InterruptedException {
-        while (sent == false) {
-            Thread.sleep(100); // since it has to sleep for 100ms, the scheduler choses the ping() function first
+       lock.lock();
+        try {
+        while ( count !=1) {
+        //    Thread.sleep(100); // since it has to sleep for 100ms, the scheduler choses the ping() function first
+        notEmpty.await();
+        
         }
+        notEmpty.signal();
+        
+        // 
         System.out.println("pong");
+       
+        }    
+        finally {
+        //System.out.println("pong");
+       lock.unlock();
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -44,6 +67,7 @@ public class PingPong {
             }
 
         }).start();
+        System.out.println("coucou");
         pingPong.pong();
     }
 
