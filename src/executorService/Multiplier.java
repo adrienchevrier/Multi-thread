@@ -39,9 +39,10 @@ public class Multiplier {
                 }
             });
         }
+
     }
     public static void main(String[] args) {
-        Multiplier multiplier = new Multiplier();
+        Multiplier multiplier = new Multiplier();//create new multiplier
         System.out.println("values calculated");
         multiplier.executor();
         System.out.println("Futures:");
@@ -53,6 +54,7 @@ public class Multiplier {
             } catch (ExecutionException e) {
                 System.err.println("IO exception");
             }
+            multiplier.srv.shutdown();//shutdown service after printing futures
         }
 
     }

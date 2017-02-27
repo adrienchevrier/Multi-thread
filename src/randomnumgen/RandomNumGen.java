@@ -12,7 +12,7 @@ public class RandomNumGen {
 
     /*Thread calling next function*/
     class AtomicThread implements Runnable{
-        RandomNumGen rng = new RandomNumGen(1);
+        RandomNumGen rng = new RandomNumGen(System.currentTimeMillis());
         /*run prints result of AtomicNext function*/
         @Override
         public void run() {
@@ -45,10 +45,11 @@ public class RandomNumGen {
         return next*2685821657736338717L;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         for(int i = 0; i < 1000; i++) {
-            new Thread(new RandomNumGen().new AtomicThread()).start();
+            new Thread(new RandomNumGen(i+1).new AtomicThread()).start();
+            Thread.sleep(5);
         }
     }
 }
