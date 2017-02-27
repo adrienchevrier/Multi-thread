@@ -19,8 +19,10 @@ public class PhilosopherDinner {
     }
 
     public void eat(int index) {
+        //get mutex for each fork of 1 philosopher
         ReentrantLock fork1 = forks[index];
         ReentrantLock fork2 = forks[(index + 1) % forks.length];
+            //get fork with lower number first
             if (index<((index + 1) % forks.length)){
                 fork1.lock();
                 fork2.lock();
@@ -28,7 +30,7 @@ public class PhilosopherDinner {
                 fork2.lock();
                 fork1.lock();
             }
-
+            // if all forks are taken, eat and release
             if (fork1.isLocked() && fork2.isLocked()) {
                 try {
                     System.out.println("philosopher " + index + " eat");

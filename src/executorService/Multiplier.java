@@ -13,6 +13,7 @@ public class Multiplier {
     private ExecutorService srv;
     private Future[] futures;
 
+    /*CONSTRUCTOR*/
     public Multiplier() {
         N = 20;
         futures = new Future[N];
@@ -31,20 +32,22 @@ public class Multiplier {
             /*submit handles multithreading while calling multiply method*/
             futures[i]=srv.submit(new Callable<Integer>() {
 
+                //method performs action when executor submits task
                 @Override
                 public Integer call() throws Exception {
-                    int multi_n = multiply(finalI);
+                    int multi_n = multiply(finalI);// run multiply method
                     System.out.println(multi_n);
                     return multi_n;
                 }
             });
         }
-
     }
     public static void main(String[] args) {
-        Multiplier multiplier = new Multiplier();//create new multiplier
+        Multiplier multiplier = new Multiplier();// new multiplier class
         System.out.println("values calculated");
-        multiplier.executor();
+        multiplier.executor();// launch executor
+
+        //print data calculated
         System.out.println("Futures:");
         for (int i = 0; i < multiplier.N; i++) {
             try {

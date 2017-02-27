@@ -17,7 +17,7 @@ public class RandomNumGen {
         @Override
         public void run() {
             System.out.println(rng.atomicNext());
-        }
+        }//print number
     }
 
     /*CONSTRUCTOR*/
@@ -42,13 +42,13 @@ public class RandomNumGen {
             next ^= next << 25;
             next ^= next >>> 27;
         }while (!atomiX.compareAndSet(prev,next));
-        return next*2685821657736338717L;
+        return next*2685821657736338717L;// return number
     }
 
     public static void main(String[] args) throws InterruptedException {
-
+        //create threads
         for(int i = 0; i < 1000; i++) {
-            new Thread(new RandomNumGen(i+1).new AtomicThread()).start();
+            new Thread(new RandomNumGen().new AtomicThread()).start();
             Thread.sleep(5);
         }
     }
